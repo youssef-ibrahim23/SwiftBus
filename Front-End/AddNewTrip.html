@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Trip | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Css/AddNewTrip.css">
+
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Admin Dashboard</h2>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('overview')">
+                    <span>Overview</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items show" id="overview-menu">
+                    <div class="menu-item" onclick="window.location.href='HomePage.html'">Dashboard</div>
+                    <div class="menu-item active">Reports</div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('buses')">
+                    <span>Manage Buses</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="buses-menu">
+                    <div class="menu-item" onclick="window.location.href='ViewAllBuses.html'">View All</div>
+                    <div class="menu-item" onclick="window.location.href='AddNewBus.html'">Add New </div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('drivers')">
+                    <span>Manage Drivers</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="drivers-menu">
+                    <div class="menu-item" onclick="window.location.href='ViewAllDrivers.html'">View All </div>
+                    <div class="menu-item" onclick="window.location.href='AddNewDriver.html'">Add New </div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('schedule')">
+                    <span>Manage Schedule</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="schedule-menu">
+                    <div class="menu-item"onclick="window.location.href='ViewAllSchedule.html'">View All</div>
+                    <div class="menu-item"onclick="window.location.href='AddNewSchedule.html'">Add New</div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('trips')">
+                    <span>Manage Trips</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="trips-menu">
+                    <div class="menu-item" onclick="window.location.href='ViewAllTrips.html'">View All</div>
+                    <div class="menu-item"onclick="window.location.href='AddNewTrip.html'">Add New</div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('destination')">
+                    <span>Manage Destination</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="destination-menu">
+                    <div class="menu-item"onclick="window.location.href='ViewAllDestination.html'">View All</div>
+                    <div class="menu-item" onclick="window.location.href='AddNewDestination.html'">Add New</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="header">
+            <div class="page-title">Add New Trip</div>
+            <div class="user-info">
+                <div class="user-avatar">AD</div>
+                <span>Admin User</span>
+            </div>
+        </div>
+
+        <div class="trip-form-container">
+            <div class="success-message" id="successMessage">
+                Trip added successfully! Redirecting to trips list...
+            </div>
+            
+            <h1 class="section-title">Trip Information</h1>
+            
+            <form id="tripForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label required">Trip ID</label>
+                        <input type="text" class="form-input" id="tripId" placeholder="Auto-generated" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Departure</label>
+                        <select class="form-select" id="departure" required>
+                            <option value="">Select Departure</option>
+                            <option value="cairo">Cairo</option>
+                            <option value="alexandria">Alexandria</option>
+                            <option value="luxor">Luxor</option>
+                            <option value="aswan">Aswan</option>
+                        </select>
+                        <div class="error-message" id="departureError">Please select departure location</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Destination</label>
+                        <select class="form-select" id="destination" required>
+                            <option value="">Select Destination</option>
+                            <option value="cairo">Cairo</option>
+                            <option value="alexandria">Alexandria</option>
+                            <option value="luxor">Luxor</option>
+                            <option value="aswan">Aswan</option>
+                        </select>
+                        <div class="error-message" id="destinationError">Please select destination</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Bus</label>
+                        <select class="form-select" id="bus" required>
+                            <option value="">Select Bus</option>
+                            <option value="bus101">Bus 101 (45 seats)</option>
+                            <option value="bus102">Bus 102 (50 seats)</option>
+                            <option value="bus103">Bus 103 (40 seats)</option>
+                            <option value="bus104">Bus 104 (55 seats)</option>
+                        </select>
+                        <div class="error-message" id="busError">Please select a bus</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Departure Date</label>
+                        <input type="date" class="form-input" id="departureDate" required>
+                        <div class="error-message" id="dateError">Please select a valid date</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Departure Time</label>
+                        <input type="time" class="form-input" id="departureTime" required>
+                        <div class="error-message" id="timeError">Please select a valid time</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Estimated Duration (hours)</label>
+                        <input type="number" class="form-input" id="duration" min="1" max="24" required>
+                        <div class="error-message" id="durationError">Please enter duration (1-24 hours)</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required">Price ($)</label>
+                        <input type="number" class="form-input" id="price" min="1" step="0.01" required>
+                        <div class="error-message" id="priceError">Please enter a valid price</div>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label class="form-label">Trip Description</label>
+                        <textarea class="form-input" id="description" rows="3" placeholder="Optional trip description"></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-divider"></div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-cancel" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-submit">Save Trip</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="Js/addNewTrip.js"></script>
+</body>
+</html>

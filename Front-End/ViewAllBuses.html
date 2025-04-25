@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Buses | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Css/ViewAllBuses.css">
+    
+</head>
+<body>
+<!-- Sidebar Navigation -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2>Admin Dashboard</h2>
+    </div>
+    <div class="sidebar-menu">
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('overview')">
+                <span>Overview</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items show" id="overview-menu">
+                <div class="menu-item" onclick="window.location.href='HomePage.html'">Dashboard</div>
+                <div class="menu-item active">Reports</div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('buses')">
+                <span>Manage Buses</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="buses-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllBuses.html'">View All</div>
+                <div class="menu-item" onclick="window.location.href='AddNewBus.html'">Add New </div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('drivers')">
+                <span>Manage Drivers</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="drivers-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllDrivers.html'">View All </div>
+                <div class="menu-item" onclick="window.location.href='AddNewDriver.html'">Add New </div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('schedule')">
+                <span>Manage Schedule</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="schedule-menu">
+                <div class="menu-item"onclick="window.location.href='ViewAllSchedule.html'">View All</div>
+                <div class="menu-item"onclick="window.location.href='AddNewSchedule.html'">Add New</div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('trips')">
+                <span>Manage Trips</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="trips-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllTrips.html'">View All</div>
+                <div class="menu-item"onclick="window.location.href='AddNewTrip.html'">Add New</div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('destination')">
+                <span>Manage Destination</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="destination-menu">
+                <div class="menu-item"onclick="window.location.href='ViewAllDestination.html'">View All</div>
+                <div class="menu-item" onclick="window.location.href='AddNewDestination.html'">Add New</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="header">
+            <div class="page-title">Manage Buses</div>
+            <div class="user-info">
+                <div class="user-avatar">AD</div>
+                <span>Admin User</span>
+            </div>
+        </div>
+
+        <div class="bus-management">
+            <div class="filter-section">
+                <div class="filter-group">
+                    <label class="filter-label">All Types</label>
+                    <select class="filter-select" id="typeFilter">
+                        <option value="all">All Types</option>
+                        <option value="ac-sleeper">A/C Sleeper</option>
+                        <option value="sleeper">Sleeper</option>
+                        <option value="non-ac-sleeper">Non A/C Sleeper</option>
+                        <option value="volvo-ac">Volvo A/C</option>
+                        <option value="ac-semi-sleeper">A/C Semi Sleeper</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">From</label>
+                    <select class="filter-select" id="fromFilter">
+                        <option value="all">All Locations</option>
+                        <option value="mumbai">Mumbai</option>
+                        <option value="pune">Pune</option>
+                        <option value="bengaluru">Bengaluru</option>
+                        <option value="chennai">Chennai</option>
+                        <option value="canada">Canada</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">To</label>
+                    <select class="filter-select" id="toFilter">
+                        <option value="all">All Locations</option>
+                        <option value="mumbai">Mumbai</option>
+                        <option value="pune">Pune</option>
+                        <option value="bengaluru">Bengaluru</option>
+                        <option value="chennai">Chennai</option>
+                        <option value="canada">Canada</option>
+                    </select>
+                </div>
+                
+                <div class="search-bar">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search Bus...">
+                </div>
+            </div>
+
+            <table class="bus-table" id="busTable">
+                <thead>
+                    <tr>
+                        <th>Bus Name</th>
+                        <th>Bag, Number</th>
+                        <th>Bus ID</th>
+                        <th>Type</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Bus data will be loaded here -->
+                </tbody>
+            </table>
+
+            <div class="footer-note">
+                Go to Settings to activate Windows
+            </div>
+        </div>
+    </div>
+
+    <script src="Js/viewAllBuses.js"></script>
+</body>
+</html>

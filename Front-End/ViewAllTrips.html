@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Trips | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Css/ViewAllTrips.css">
+
+</head>
+<body>
+<!-- Sidebar Navigation -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2>Admin Dashboard</h2>
+    </div>
+    <div class="sidebar-menu">
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('overview')">
+                <span>Overview</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items show" id="overview-menu">
+                <div class="menu-item" onclick="window.location.href='HomePage.html'">Dashboard</div>
+                <div class="menu-item active">Reports</div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('buses')">
+                <span>Manage Buses</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="buses-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllBuses.html'">View All</div>
+                <div class="menu-item" onclick="window.location.href='AddNewBus.html'">Add New </div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('drivers')">
+                <span>Manage Drivers</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="drivers-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllDrivers.html'">View All </div>
+                <div class="menu-item" onclick="window.location.href='AddNewDriver.html'">Add New </div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('schedule')">
+                <span>Manage Schedule</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="schedule-menu">
+                <div class="menu-item"onclick="window.location.href='ViewAllSchedule.html'">View All</div>
+                <div class="menu-item"onclick="window.location.href='AddNewSchedule.html'">Add New</div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('trips')">
+                <span>Manage Trips</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="trips-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllTrips.html'">View All</div>
+                <div class="menu-item"onclick="window.location.href='AddNewTrip.html'">Add New</div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('destination')">
+                <span>Manage Destination</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="destination-menu">
+                <div class="menu-item"onclick="window.location.href='ViewAllDestination.html'">View All</div>
+                <div class="menu-item" onclick="window.location.href='AddNewDestination.html'">Add New</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="header">
+            <div class="page-title">Manage Trips</div>
+            <div class="user-info">
+                <div class="user-avatar">AD</div>
+                <span>Admin User</span>
+            </div>
+        </div>
+
+        <div class="trips-container">
+            <h1 class="section-title">Search About Trip</h1>
+            
+            <div class="search-section">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search trips..." id="searchInput">
+                    <button class="btn-icon" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <span class="search-tag">Q Cairo</span>
+            </div>
+            
+            <table class="trips-table">
+                <thead>
+                    <tr>
+                        <th>Tripid</th>
+                        <th>Departure</th>
+                        <th>Destination</th>
+                        <th>Date</th>
+                        <th>Seats</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tripsTableBody">
+                    <!-- Trips will be loaded here dynamically -->
+                </tbody>
+            </table>
+            
+            <button class="add-trip-btn" id="addTripBtn">
+                <i class="fas fa-plus"></i> Add New Trip
+            </button>
+        </div>
+    </div>
+
+    <!-- Add/Edit Trip Modal -->
+    <div class="modal" id="tripModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Add New Trip</h2>
+                <span class="close-btn" id="closeModal">&times;</span>
+            </div>
+            
+            <form id="tripForm">
+                <input type="hidden" id="tripId">
+                
+                <div class="form-group">
+                    <label class="form-label">Departure</label>
+                    <input type="text" class="form-input" id="departure" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Destination</label>
+                    <input type="text" class="form-input" id="destination" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-input" id="tripDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Total Seats</label>
+                    <input type="number" class="form-input" id="totalSeats" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Available Seats</label>
+                    <input type="number" class="form-input" id="availableSeats" required>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-cancel" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="Js/viewAllTrips.js"></script>
+</body>
+</html>

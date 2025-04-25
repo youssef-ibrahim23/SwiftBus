@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Bus Management System</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --sidebar-bg: #2c3e50;
+            --menu-header-bg: #1a252f;
+            --menu-hover: #34495e;
+            --accent-color: #3498db;
+            --text-color: #ecf0f1;
+            --light-text: #bdc3c7;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background-color: var(--sidebar-bg);
+            color: var(--text-color);
+            height: 100vh;
+            position: fixed;
+            transition: all 0.3s;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background-color: var(--menu-header-bg);
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-category {
+            margin-bottom: 5px;
+        }
+
+        .menu-title {
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .menu-title:hover {
+            background-color: var(--menu-hover);
+        }
+
+        .menu-title i {
+            transition: transform 0.3s;
+            font-size: 12px;
+        }
+
+        .menu-items {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .menu-items.show {
+            max-height: 500px;
+        }
+
+        .menu-item {
+            padding: 10px 20px 10px 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .menu-item:hover {
+            background-color: var(--menu-hover);
+            color: var(--accent-color);
+        }
+
+        .menu-item.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .card-change {
+            font-size: 12px;
+            color: #27ae60;
+        }
+
+        /* Booking Table */
+        .booking-table {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .status-pending {
+            color: #e67e22;
+            font-weight: 600;
+        }
+
+        .status-confirmed {
+            color: #27ae60;
+            font-weight: 600;
+        }
+
+        .status-cancelled {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .btn-confirm {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .btn-cancel {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .btn-view {
+            background-color: #3498db;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                overflow: hidden;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .sidebar.show {
+                width: 250px;
+            }
+            .main-content.shrink {
+                margin-left: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Admin Dashboard</h2>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('overview')">
+                    <span>Overview</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items show" id="overview-menu">
+                    <div class="menu-item" onclick="window.location.href='HomePage.html'">Dashboard</div>
+                    <div class="menu-item active">Reports</div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('buses')">
+                    <span>Manage Buses</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="buses-menu">
+                    <div class="menu-item" onclick="window.location.href='ViewAllBuses.html'">View All</div>
+                    <div class="menu-item" onclick="window.location.href='AddNewBus.html'">Add New </div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('drivers')">
+                    <span>Manage Drivers</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="drivers-menu">
+                    <div class="menu-item" onclick="window.location.href='ViewAllDrivers.html'">View All </div>
+                    <div class="menu-item" onclick="window.location.href='AddNewDriver.html'">Add New </div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('schedule')">
+                    <span>Manage Schedule</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="schedule-menu">
+                    <div class="menu-item"onclick="window.location.href='ViewAllSchedule.html'">View All</div>
+                    <div class="menu-item"onclick="window.location.href='AddNewSchedule.html'">Add New</div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('trips')">
+                    <span>Manage Trips</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="trips-menu">
+                    <div class="menu-item" onclick="window.location.href='ViewAllTrips.html'">View All</div>
+                    <div class="menu-item"onclick="window.location.href='AddNewTrip.html'">Add New</div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('destination')">
+                    <span>Manage Destination</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="destination-menu">
+                    <div class="menu-item"onclick="window.location.href='ViewAllDestination.html'">View All</div>
+                    <div class="menu-item" onclick="window.location.href='AddNewDestination.html'">Add New</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="header">
+            <div class="page-title">Dashboard</div>
+            <div class="user-info">
+                <div class="user-avatar">AD</div>
+                <span>Administrator</span>
+            </div>
+        </div>
+
+        <div class="dashboard-cards">
+            <div class="card">
+                <div class="card-title">Total Users</div>
+                <div class="card-value" id="totalUsers">1,250</div>
+                <div class="card-change">+12% from last month</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Total Trips</div>
+                <div class="card-value" id="totalTrips">300</div>
+                <div class="card-change">+5% from last month</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Pending Bookings</div>
+                <div class="card-value" id="pendingBookings">25</div>
+                <div class="card-change">+3 new today</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Feedback Received</div>
+                <div class="card-value" id="totalFeedback">100</div>
+                <div class="card-change">+8% from last month</div>
+            </div>
+        </div>
+
+        <div class="booking-table">
+            <h3>Booking Requests</h3>
+            <table id="bookingTable">
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>User</th>
+                        <th>Trip</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>BK001</td>
+                        <td>John Doe</td>
+                        <td>New York</td>
+                        <td>Apr 21, 2024</td>
+                        <td><span class="status-pending">Pending</span></td>
+                        <td>
+                            <button class="action-btn btn-confirm" onclick="updateBookingStatus('BK001', 'Confirmed')">Confirm</button>
+                            <button class="action-btn btn-cancel" onclick="updateBookingStatus('BK001', 'Cancelled')">Cancel</button>
+                            <button class="action-btn btn-view" onclick="viewBookingDetails('BK001')">View</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>BK002</td>
+                        <td>Jane Smith</td>
+                        <td>Los Angeles</td>
+                        <td>Apr 21, 2024</td>
+                        <td><span class="status-pending">Pending</span></td>
+                        <td>
+                            <button class="action-btn btn-confirm" onclick="updateBookingStatus('BK002', 'Confirmed')">Confirm</button>
+                            <button class="action-btn btn-cancel" onclick="updateBookingStatus('BK002', 'Cancelled')">Cancel</button>
+                            <button class="action-btn btn-view" onclick="viewBookingDetails('BK002')">View</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>BK003</td>
+                        <td>Alice Johnson</td>
+                        <td>Chicago</td>
+                        <td>Apr 22, 2024</td>
+                        <td><span class="status-pending">Pending</span></td>
+                        <td>
+                            <button class="action-btn btn-confirm" onclick="updateBookingStatus('BK003', 'Confirmed')">Confirm</button>
+                            <button class="action-btn btn-cancel" onclick="updateBookingStatus('BK003', 'Cancelled')">Cancel</button>
+                            <button class="action-btn btn-view" onclick="viewBookingDetails('BK003')">View</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Toggle menu categories
+        function toggleMenu(menuId) {
+            const menu = document.getElementById(`${menuId}-menu`);
+            const icon = document.querySelector(`[onclick="toggleMenu('${menuId}')] i`);
+            
+            menu.classList.toggle('show');
+            icon.style.transform = menu.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        // Update booking status
+        function updateBookingStatus(bookingId, newStatus) {
+            const rows = document.querySelectorAll('#bookingTable tbody tr');
+            rows.forEach(row => {
+                if (row.cells[0].textContent === bookingId) {
+                    const statusCell = row.cells[4];
+                    statusCell.innerHTML = `<span class="status-${newStatus.toLowerCase()}">${newStatus}</span>`;
+                    alert(`Booking ${bookingId} has been ${newStatus.toLowerCase()}`);
+                }
+            });
+        }
+
+        // View booking details
+        function viewBookingDetails(bookingId) {
+            const rows = document.querySelectorAll('#bookingTable tbody tr');
+            rows.forEach(row => {
+                if (row.cells[0].textContent === bookingId) {
+                    const user = row.cells[1].textContent;
+                    const trip = row.cells[2].textContent;
+                    const date = row.cells[3].textContent;
+                    const status = row.cells[4].textContent;
+                    
+                    alert(`Booking Details:\n\nID: ${bookingId}\nUser: ${user}\nTrip: ${trip}\nDate: ${date}\nStatus: ${status}`);
+                }
+            });
+        }
+
+        // Toggle sidebar on mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            
+            sidebar.classList.toggle('show');
+            mainContent.classList.toggle('shrink');
+        }
+    </script>
+</body>
+</html>

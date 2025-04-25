@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Bus | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Css/AddNewBus.css">
+    
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Admin Dashboard</h2>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('overview')">
+                    <span>Overview</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items show" id="overview-menu">
+                    <div class="menu-item" onclick="window.location.href='HomePage.html'">Dashboard</div>
+                    <div class="menu-item active">Reports</div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('buses')">
+                    <span>Manage Buses</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="buses-menu">
+                    <div class="menu-item" onclick="window.location.href='ViewAllBuses.html'">View All</div>
+                    <div class="menu-item" onclick="window.location.href='AddNewBus.html'">Add New </div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('drivers')">
+                    <span>Manage Drivers</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="drivers-menu">
+                    <div class="menu-item" onclick="window.location.href='ViewAllDrivers.html'">View All </div>
+                    <div class="menu-item" onclick="window.location.href='AddNewDriver.html'">Add New </div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('schedule')">
+                    <span>Manage Schedule</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="schedule-menu">
+                    <div class="menu-item"onclick="window.location.href='ViewAllSchedule.html'">View All</div>
+                    <div class="menu-item"onclick="window.location.href='AddNewSchedule.html'">Add New</div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('trips')">
+                    <span>Manage Trips</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="trips-menu">
+                    <div class="menu-item" onclick="window.location.href='ViewAllTrips.html'">View All</div>
+                    <div class="menu-item"onclick="window.location.href='AddNewTrip.html'">Add New</div>
+                </div>
+            </div>
+            
+            <div class="menu-category">
+                <div class="menu-title" onclick="toggleMenu('destination')">
+                    <span>Manage Destination</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="menu-items" id="destination-menu">
+                    <div class="menu-item"onclick="window.location.href='ViewAllDestination.html'">View All</div>
+                    <div class="menu-item" onclick="window.location.href='AddNewDestination.html'">Add New</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="header">
+            <div class="page-title">Manage Buses</div>
+            <div class="user-info">
+                <div class="user-avatar">AD</div>
+                <span>Admin User</span>
+            </div>
+        </div>
+
+        <div class="add-bus-container">
+            <h2 class="form-title">Add New Bus</h2>
+            
+            <form id="addBusForm">
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="from">From</label>
+                            <input type="text" id="from" required>
+                            <span class="check-mark">✓</span>
+                        </div>
+                        <div class="form-field">
+                            <label for="to">To</label>
+                            <input type="text" id="to" required>
+                            <span class="check-mark">✓</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="date">Date</label>
+                            <input type="date" id="date" required>
+                            <span class="check-mark">✓</span>
+                        </div>
+                        <div class="form-field">
+                            <label for="time">Time</label>
+                            <input type="time" id="time" required>
+                            <span class="check-mark">✓</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="type">Type</label>
+                            <select id="type" required>
+                                <option value="">Select Type</option>
+                                <option value="ac-sleeper">A/C Sleeper</option>
+                                <option value="sleeper">Sleeper</option>
+                                <option value="non-ac-sleeper">Non A/C Sleeper</option>
+                                <option value="volvo-ac">Volvo A/C</option>
+                                <option value="ac-semi-sleeper">A/C Semi Sleeper</option>
+                            </select>
+                            <span class="check-mark">✓</span>
+                        </div>
+                        <div class="form-field">
+                            <label for="price">Price</label>
+                            <input type="number" id="price" required>
+                            <span class="check-mark">✓</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="Js/addNewBus.js"></script>
+</body>
+</html>

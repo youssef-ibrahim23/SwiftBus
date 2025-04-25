@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Drivers | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Css/AddNewDriver.css">
+
+</head>
+<body>
+<!-- Sidebar Navigation -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2>Admin Dashboard</h2>
+    </div>
+    <div class="sidebar-menu">
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('overview')">
+                <span>Overview</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items show" id="overview-menu">
+                <div class="menu-item" onclick="window.location.href='HomePage.html'">Dashboard</div>
+                <div class="menu-item active">Reports</div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('buses')">
+                <span>Manage Buses</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="buses-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllBuses.html'">View All</div>
+                <div class="menu-item" onclick="window.location.href='AddNewBus.html'">Add New </div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('drivers')">
+                <span>Manage Drivers</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="drivers-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllDrivers.html'">View All </div>
+                <div class="menu-item" onclick="window.location.href='AddNewDriver.html'">Add New </div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('schedule')">
+                <span>Manage Schedule</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="schedule-menu">
+                <div class="menu-item"onclick="window.location.href='ViewAllSchedule.html'">View All</div>
+                <div class="menu-item"onclick="window.location.href='AddNewSchedule.html'">Add New</div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('trips')">
+                <span>Manage Trips</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="trips-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllTrips.html'">View All</div>
+                <div class="menu-item"onclick="window.location.href='AddNewTrip.html'">Add New</div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('destination')">
+                <span>Manage Destination</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="destination-menu">
+                <div class="menu-item"onclick="window.location.href='ViewAllDestination.html'">View All</div>
+                <div class="menu-item" onclick="window.location.href='AddNewDestination.html'">Add New</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="header">
+            <div class="page-title">Manage Drivers</div>
+            <div class="user-info">
+                <div class="user-avatar">AD</div>
+                <span>Admin User</span>
+            </div>
+        </div>
+
+        <div class="driver-form-container">
+           
+            
+            <div class="upload-photo">
+                <h2 class="section-title">Upload Profile Photo</h2>
+                <div class="photo-upload-area">
+                    <div class="photo-preview" id="photoPreview">
+                        <div class="photo-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <button class="upload-btn" id="uploadBtn">Upload Photo</button>
+                    <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-input" placeholder="Enter driver's full name">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Phone Contact</label>
+                <input type="tel" class="form-input" placeholder="Enter phone number">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Age</label>
+                <input type="number" class="form-input" placeholder="Enter age">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-input" placeholder="Enter email address">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Gender</label>
+                <select class="form-input">
+                    <option value="">Select gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Driving Experience</label>
+                <input type="text" class="form-input" placeholder="Enter years of driving experience">
+            </div>
+            
+            <div class="form-divider"></div>
+            
+            <div class="form-actions">
+                <button class="btn btn-cancel">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="Js/addNewDriver.js"></script>
+</body>
+</html>

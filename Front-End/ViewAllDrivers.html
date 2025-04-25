@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Drivers | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Css/ViewAllDrivers.css">
+
+</head>
+<body>
+<!-- Sidebar Navigation -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h2>Admin Dashboard</h2>
+    </div>
+    <div class="sidebar-menu">
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('overview')">
+                <span>Overview</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items show" id="overview-menu">
+                <div class="menu-item" onclick="window.location.href='HomePage.html'">Dashboard</div>
+                <div class="menu-item active">Reports</div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('buses')">
+                <span>Manage Buses</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="buses-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllBuses.html'">View All</div>
+                <div class="menu-item" onclick="window.location.href='AddNewBus.html'">Add New </div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('drivers')">
+                <span>Manage Drivers</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="drivers-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllDrivers.html'">View All </div>
+                <div class="menu-item" onclick="window.location.href='AddNewDriver.html'">Add New </div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('schedule')">
+                <span>Manage Schedule</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="schedule-menu">
+                <div class="menu-item"onclick="window.location.href='ViewAllSchedule.html'">View All</div>
+                <div class="menu-item"onclick="window.location.href='AddNewSchedule.html'">Add New</div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('trips')">
+                <span>Manage Trips</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="trips-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllTrips.html'">View All</div>
+                <div class="menu-item"onclick="window.location.href='AddNewTrip.html'">Add New</div>
+            </div>
+        </div>
+        
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('destination')">
+                <span>Manage Destination</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="destination-menu">
+                <div class="menu-item"onclick="window.location.href='ViewAllDestination.html'">View All</div>
+                <div class="menu-item" onclick="window.location.href='AddNewDestination.html'">Add New</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="header">
+            <div class="page-title">Manage Drivers</div>
+            <div class="user-info">
+                <div class="user-avatar">AD</div>
+                <span>Admin User</span>
+            </div>
+        </div>
+
+        <div class="drivers-container">
+            <div class="drivers-list" id="driversList">
+                <!-- Drivers will be loaded here -->
+            </div>
+
+    
+        </div>
+    </div>
+
+    <script src="Js/viewAllDrivers.js"></script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+body {
+    font-family: 'Fredoka', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url("Bus.jpg");
+  }
+  
+  .header {
+    background: #1589e1;
+    color: #fff;
+    padding: 20px 0 20px 0;
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    
+  }
+  
+  nav { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100%;
+    
+}
+
+.nav-links ul {
+    display: flex;
+    padding-left: 1100px;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+}
+
+  .logo-section {
+    display: flex;
+    align-items: center;
+    margin-left: 30px;
+  }
+  
+
+  
+  .logo-text {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px 30px 30px;
+  }
+  
+  .main-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.6rem;
+    margin: 30px 0 30px 0;
+    color: #000;
+  }
+  
+  .bookings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 32px;
+    justify-content: center;
+  }
+  
+  .booking-card {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    padding: 22px 20px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.08rem;
+    min-height: 220px;
+    position: relative;
+    transition: box-shadow 0.2s;
+  }
+  
+  .booking-card:hover {
+    box-shadow: 0 4px 20px rgba(21,131,216,0.15);
+  }
+  
+  .route-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+  }
+  
+  .arrow {
+    margin: 0 8px;
+  }
+  
+  .booking-info > div {
+    margin-bottom: 7px;
+    color: #222;
+    font-family: 'Fredoka', Arial, sans-serif;
+  }
+  
+  .booking-info i {
+    color: #1583d8;
+    margin-right: 6px;
+    min-width: 18px;
+    text-align: center;
+  }
+  
+  .status-text {
+    font-weight: bold;
+  }
+  
+  .booking-card.pending .status-text {
+    color: #f7b731;
+  }
+  
+  .booking-card.accepted .status-text {
+    color: #27ae60;
+  }
+  
+  .booking-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+  
+  .cancel-btn {
+    background: #1583d8;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 8px 22px;
+    font-size: 1rem;
+    font-family: 'Fredoka', Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(21,131,216,0.08);
+    transition: background 0.2s;
+  }
+  
+  .cancel-btn:hover {
+    background: #116db6;
+  }
+  
+  .price {
+    color: #1583d8;
+    font-weight: bold;
+    font-size: 1.12rem;
+    margin-left: 12px;
+  }
+  
