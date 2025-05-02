@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Destinations | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Css/ViewAllDestination.css">
+    
+    
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header"><h2>Admin Dashboard</h2></div>
+    <div class="sidebar-menu">
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('overview')">
+                <span>Overview</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items show" id="overview-menu">
+                <div class="menu-item" onclick="window.location.href='HomePage.html'">Dashboard</div>
+                <div class="menu-item">Reports</div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('buses')">
+                <span>Manage Buses</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="buses-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllBuses.html'">View All</div>
+                <div class="menu-item" onclick="window.location.href='AddNewBus.html'">Add New</div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('drivers')">
+                <span>Manage Drivers</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="drivers-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllDrivers.html'">View All</div>
+                <div class="menu-item" onclick="window.location.href='AddNewDriver.html'">Add New</div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('trips')">
+                <span>Manage Trips</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items" id="trips-menu">
+                <div class="menu-item" onclick="window.location.href='ViewAllTrips.html'">View All</div>
+                <div class="menu-item" onclick="window.location.href='AddNewTrip.html'">Add New</div>
+            </div>
+        </div>
+
+        <div class="menu-category">
+            <div class="menu-title" onclick="toggleMenu('booking')">
+                <span>Manage Bookings</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="menu-items show" id="booking-menu">
+                <div class="menu-item active" onclick="window.location.href='ManageBooking.html'">View All</div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="header">
+            <div>
+                <h1 class="page-title">Manage Destinations</h1>
+                <div class="breadcrumb">Manage Destinations \ View All</div>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">AD</div>
+                <span>Admin User</span>
+            </div>
+        </div>
+
+        <div class="destinations-container">
+            <div class="search-section">
+                <h2 class="search-title">Search About Destination</h2>
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search destinations..." id="searchInput">
+                    <button class="btn-icon" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <span class="search-tag">Alexandria</span>
+            </div>
+            
+            <table class="destinations-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Destination</th>
+                        <th>City</th>
+                        <th>Active Route</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="destinationsTableBody">
+                    <!-- Destinations will be loaded here dynamically -->
+                </tbody>
+            </table>
+            
+            <button class="add-destination-btn" id="addDestinationBtn">
+                <i class="fas fa-plus"></i> Add New Destination
+            </button>
+            
+            <div class="footer-note">
+                Activate Window
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Destination Modal -->
+    <div class="modal" id="destinationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Add New Destination</h2>
+                <span class="close-btn" id="closeModal">&times;</span>
+            </div>
+            
+            <form id="destinationForm">
+                <input type="hidden" id="destinationId">
+                
+                <div class="form-group">
+                    <label class="form-label">Destination Name</label>
+                    <input type="text" class="form-input" id="destinationName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">City</label>
+                    <input type="text" class="form-input" id="city" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Active Routes</label>
+                    <input type="number" class="form-input" id="activeRoutes" required>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-cancel" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-submit">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="Js/viewAllDestination.js"></script>
+</body>
+</html>

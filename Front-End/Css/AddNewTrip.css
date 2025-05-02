@@ -1,0 +1,212 @@
+
+:root {
+    --sidebar-bg: #2c3e50;
+    --menu-header-bg: #1a252f;
+    --menu-hover: #34495e;
+    --accent-color: #3498db;
+    --text-color: #ecf0f1;
+    --light-text: #bdc3c7;
+    --card-bg: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-color: #e0e0e0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #1f2937;
+    color: white;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.sidebar-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar-menu .menu-category {
+    margin-bottom: 20px;
+}
+
+.menu-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.menu-items {
+    margin-top: 10px;
+    padding-left: 10px;
+    display: none;
+}
+
+.menu-items.show {
+    display: block;
+}
+
+.menu-item {
+    padding: 8px 0;
+    cursor: pointer;
+}
+
+.menu-item.active {
+    font-weight: 600;
+    color: #1d4ed8;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px 40px;
+}
+
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .page-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #2d3436;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .user-avatar {
+    width: 35px;
+    height: 35px;
+    background-color: #1d4ed8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+  }
+
+
+
+/* Trip Form Container Styles */
+.trip-form-container {
+    background: #fff;
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    max-width: 700px;
+    width: 100%; /* Ensures it doesn't exceed max-width */
+    margin-left: 70px;
+}
+
+
+  form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .form-group {
+    flex: 1 1 45%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #2d3436;
+  }
+  
+  input,
+  select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+  }
+  
+  .submit-btn {
+    flex: 1 1 100%;
+    padding: 12px;
+    background-color: #1d4ed8;
+    color: white;
+    border: none;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .submit-btn:hover {
+    background-color: #00b894;
+  }
+  
+  .message {
+    flex: 1 1 100%;
+    text-align: center;
+    margin-top: 15px;
+    color: green;
+  }
+  /* Loading spinner for submit button */
+.fa-spinner {
+  margin-right: 8px;
+}
+
+/* Message styles */
+.message {
+  padding: 12px;
+  border-radius: 4px;
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.message.success {
+  background-color: rgba(40, 167, 69, 0.2);
+  color: #28a745;
+  border: 1px solid #28a745;
+}
+
+.message.error {
+  background-color: rgba(220, 53, 69, 0.2);
+  color: #dc3545;
+  border: 1px solid #dc3545;
+}
+
+/* Disabled button state */
+.submit-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Form validation */
+input:invalid, select:invalid {
+  border-color: #dc3545;
+}
+
+input:valid, select:valid {
+  border-color: #28a745;
+}

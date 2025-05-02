@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftBus - Download Tickets</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1589e1;
+            --primary-dark: #116db6;
+            --success-color: #27ae60;
+            --warning-color: #f7b731;
+            --danger-color: #e74c3c;
+            --light-gray: #f5f7fa;
+            --dark-gray: #222;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fredoka', Arial, sans-serif;
+            background-color: var(--light-gray);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-text {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .nav-links ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem;
+            transition: var(--transition);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .main-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .bookings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .booking-card {
+            background: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(21, 131, 216, 0.15);
+        }
+
+        .route-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .arrow {
+            color: var(--primary-color);
+        }
+
+        .booking-info {
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 0.5rem;
+            align-items: center;
+        }
+
+        .info-row i {
+            color: var(--primary-color);
+            width: 1.5rem;
+            text-align: center;
+            margin-right: 0.5rem;
+        }
+
+        .info-label {
+            font-weight: 600;
+            min-width: 80px;
+        }
+
+        .status-badge {
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-confirmed {
+            background-color: rgba(39, 174, 96, 0.1);
+            color: var(--success-color);
+        }
+
+        .booking-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #ddd;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: var(--primary-color);
+        }
+
+        .download-btn {
+            background: var(--success-color);
+            color: #fff;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 0.7rem 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .download-btn:hover {
+            background: #219653;
+            transform: translateY(-2px);
+        }
+
+        .download-btn i {
+            font-size: 0.9rem;
+        }
+
+        .trip-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .express-badge {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .no-tickets {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 3rem;
+            color: #777;
+        }
+
+        .no-tickets i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ddd;
+        }
+
+        .ticket-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            position: relative;
+            animation: modalFadeIn 0.3s;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .modal-title {
+            font-family: 'Fredoka One', cursive;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .ticket-preview {
+            background: #f9f9f9;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            border: 1px dashed #ccc;
+        }
+
+        .ticket-qr {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 1rem;
+            background: #fff;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .print-btn {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .print-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .download-modal-btn {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .download-modal-btn:hover {
+            background: #219653;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: var(--primary-color);
+                padding: 1rem;
+                transform: translateY(-150%);
+                transition: var(--transition);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .nav-links ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .bookings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <i class="fas fa-bus"></i>
+                <span class="logo-text">SwiftBus</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="mybooking.html"><i class="fas fa-ticket-alt"></i> My Bookings</a></li>
+                    <li><a href="download.html" class="active"><i class="fas fa-download"></i> Download Ticket</a></li>
+                    <li><a href="feedback.html"><i class="fas fa-comment-alt"></i> Feedback</a></li>
+                    <li><a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="main-title">Download Tickets</h1>
+        
+        <div class="search-container">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search by route, date, or booking ID...">
+            <button class="filter-btn" id="filterBtn">
+                <i class="fas fa-filter"></i> Filter
+            </button>
+        </div>
+        
+        <div class="bookings-grid" id="ticketsContainer">
+            <!-- Ticket cards will be generated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Ticket Preview Modal -->
+    <div class="ticket-modal" id="ticketModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2 class="modal-title">Your Ticket</h2>
+            
+            <div class="ticket-preview">
+                <div class="ticket-qr">
+                    <!-- QR code would be generated here in a real app -->
+                    <i class="fas fa-qrcode" style="font-size: 5rem; color: #333;"></i>
+                </div>
+                <h3 id="modalRoute">Cairo to Alexandria</h3>
+                <p id="modalBookingId">Booking ID: SWB-123456</p>
+                <p id="modalDate">Date: Wed, April 29, 2025</p>
+                <p id="modalTime">Time: 08:00 AM - 11:30 AM</p>
+                <p id="modalPassengers">Passengers: 2</p>
+                <p id="modalSeat">Seat: 12A, 12B</p>
+                <p id="modalPrice">Total: 240 EGP</p>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn print-btn" id="printBtn">
+                    <i class="fas fa-print"></i> Print Ticket
+                </button>
+                <button class="modal-btn download-modal-btn" id="downloadModalBtn">
+                    <i class="fas fa-download"></i> Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+            
+            // Ticket data - in a real app, this would come from an API
+            const tickets = [
+                {
+                    id: 1,
+                    bookingId: 'SWB-123456',
+                    from: 'Cairo',
+                    to: 'Alexandria',
+                    date: 'Wed, April 29, 2025',
+                    departureTime: '08:00 AM',
+                    arrivalTime: '11:30 AM',
+                    price: 120,
+                    passengers: 2,
+                    seats: ['12A', '12B'],
+                    status: 'confirmed',
+                    busType: 'Volvo AC',
+                    busNumber: 'Swift-12',
+                    isExpress: true
+                },
+                {
+                    id: 2,
+                    bookingId: 'SWB-789012',
+                    from: 'Cairo',
+                    to: 'Alexandria',
+                    date: 'Wed, April 29, 2025',
+                    departureTime: '10:00 AM',
+                    arrivalTime: '01:30 PM',
+                    price: 120,
+                    passengers: 1,
+                    seats: ['8C'],
+                    status: 'confirmed',
+                    busType: 'Mercedes',
+                    busNumber: 'Swift-15'
+                },
+                {
+                    id: 3,
+                    bookingId: 'SWB-345678',
+                    from: 'Cairo',
+                    to: 'Alexandria',
+                    date: 'Wed, April 29, 2025',
+                    departureTime: '02:00 PM',
+                    arrivalTime: '05:30 PM',
+                    price: 120,
+                    passengers: 3,
+                    seats: ['4A', '4B', '4C'],
+                    status: 'confirmed',
+                    busType: 'Volvo AC',
+                    busNumber: 'Swift-18',
+                    isExpress: true
+                }
+            ];
+            
+            // Render tickets
+            const ticketsContainer = document.getElementById('ticketsContainer');
+            
+            function renderTickets(ticketsToRender) {
+                ticketsContainer.innerHTML = '';
+                
+                // Filter to only show confirmed/accepted tickets
+                const acceptedTickets = ticketsToRender.filter(ticket => ticket.status === 'confirmed');
+                
+                if (acceptedTickets.length === 0) {
+                    ticketsContainer.innerHTML = `
+                        <div class="no-tickets">
+                            <i class="fas fa-ticket-alt"></i>
+                            <h3>No tickets available for download</h3>
+                            <p>You don't have any confirmed bookings to download</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                acceptedTickets.forEach(ticket => {
+                    const ticketCard = document.createElement('div');
+                    ticketCard.className = `booking-card`;
+                    ticketCard.dataset.id = ticket.id;
+                    
+                    let badges = '';
+                    if (ticket.isExpress) {
+                        badges += '<span class="trip-badge express-badge">Express</span>';
+                    }
+                    
+                    ticketCard.innerHTML = `
+                        ${badges}
+                        <div class="route-title">
+                            ${ticket.from} <i class="fas fa-arrow-right arrow"></i> ${ticket.to}
+                        </div>
+                        <div class="booking-info">
+                            <div class="info-row">
+                                <i class="fas fa-ticket"></i>
+                                <span>Booking ID: ${ticket.bookingId}</span>
+                            </div>
+                            <div class="info-row">
+                                <i class="fas fa-clock"></i>
+                                <span>${ticket.departureTime} - ${ticket.arrivalTime}</span>
+                            </div>
+                            <div class="info-row">
+                                <i class="fas fa-calendar-day"></i>
+                                <span>${ticket.date}</span>
+                            </div>
+                            <div class="info-row">
+                                <i class="fas fa-bus"></i>
+                                <span>${ticket.busType} (${ticket.busNumber})</span>
+                            </div>
+                            <div class="info-row">
+                                <i class="fas fa-user"></i>
+                                <span>${ticket.passengers} passenger${ticket.passengers > 1 ? 's' : ''}</span>
+                            </div>
+                            <div class="info-row">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Status: <span class="status-badge status-confirmed">Confirmed</span></span>
+                            </div>
+                        </div>
+                        <div class="booking-footer">
+                            <span class="price">${ticket.price * ticket.passengers} EGP</span>
+                            <button class="download-btn" data-id="${ticket.id}">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    `;
+                    
+                    ticketsContainer.appendChild(ticketCard);
+                });
+                
+                // Add event listeners to download buttons
+                document.querySelectorAll('.download-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const ticketId = parseInt(this.dataset.id);
+                        const ticket = tickets.find(t => t.id === ticketId);
+                        openTicketModal(ticket);
+                    });
+                });
+            }
+            
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const filteredTickets = tickets.filter(ticket => {
+                    return (
+                        ticket.from.toLowerCase().includes(searchTerm) ||
+                        ticket.to.toLowerCase().includes(searchTerm) ||
+                        ticket.date.toLowerCase().includes(searchTerm) ||
+                        ticket.bookingId.toLowerCase().includes(searchTerm)
+                    );
+                });
+                renderTickets(filteredTickets);
+            });
+            
+            // Filter functionality
+            const filterBtn = document.getElementById('filterBtn');
+            filterBtn.addEventListener('click', function() {
+                // In a real app, this would open a filter panel
+                alert('Filter functionality would be implemented here');
+            });
+            
+            // Ticket modal
+            const modal = document.getElementById('ticketModal');
+            const closeModal = document.getElementById('closeModal');
+            const printBtn = document.getElementById('printBtn');
+            const downloadModalBtn = document.getElementById('downloadModalBtn');
+            
+            let currentTicket = null;
+            
+            function openTicketModal(ticket) {
+                currentTicket = ticket;
+                
+                document.getElementById('modalRoute').textContent = `${ticket.from} to ${ticket.to}`;
+                document.getElementById('modalBookingId').textContent = `Booking ID: ${ticket.bookingId}`;
+                document.getElementById('modalDate').textContent = `Date: ${ticket.date}`;
+                document.getElementById('modalTime').textContent = `Time: ${ticket.departureTime} - ${ticket.arrivalTime}`;
+                document.getElementById('modalPassengers').textContent = `Passengers: ${ticket.passengers}`;
+                document.getElementById('modalSeat').textContent = `Seat: ${ticket.seats.join(', ')}`;
+                document.getElementById('modalPrice').textContent = `Total: ${ticket.price * ticket.passengers} EGP`;
+                
+                modal.style.display = 'flex';
+            }
+            
+            closeModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            printBtn.addEventListener('click', function() {
+                // In a real app, this would print the ticket
+                alert(`Printing ticket for booking ${currentTicket.bookingId}`);
+            });
+            
+            downloadModalBtn.addEventListener('click', function() {
+                // In a real app, this would download the ticket as PDF
+                alert(`Downloading PDF for booking ${currentTicket.bookingId}`);
+            });
+            
+            // Initial render - only shows accepted/confirmed tickets
+            renderTickets(tickets);
+        });
+    </script>
+</body>
+</html>

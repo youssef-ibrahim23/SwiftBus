@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Trips | Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="Css/ViewAllTrips.css">
+</head>
+<body>
+  <!-- Sidebar Navigation -->
+  <nav class="sidebar" id="sidebar" aria-label="Main navigation">
+    <div class="sidebar-header">
+      <h2>Admin Dashboard</h2>
+    </div>
+    <div class="sidebar-menu">
+      <div class="menu-category">
+        <div class="menu-title" onclick="toggleMenu('overview')" role="button" aria-expanded="false" aria-controls="overview-menu">
+          <span>Overview</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="menu-items show" id="overview-menu">
+          <div class="menu-item" onclick="window.location.href='HomePage.html'">Dashboard</div>
+          <div class="menu-item" onclick="window.location.href='ReportPage.html'">Reports</div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <div class="menu-title" onclick="toggleMenu('buses')" role="button" aria-expanded="false" aria-controls="buses-menu">
+          <span>Manage Buses</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="menu-items" id="buses-menu">
+          <div class="menu-item active" onclick="window.location.href='ViewAllBuses.html'">View All</div>
+          <div class="menu-item" onclick="window.location.href='AddNewBus.html'">Add New</div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <div class="menu-title" onclick="toggleMenu('drivers')" role="button" aria-expanded="false" aria-controls="drivers-menu">
+          <span>Manage Drivers</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="menu-items" id="drivers-menu">
+          <div class="menu-item" onclick="window.location.href='ViewAllDrivers.html'">View All</div>
+          <div class="menu-item" onclick="window.location.href='AddNewDriver.html'">Add New</div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <div class="menu-title" onclick="toggleMenu('trips')" role="button" aria-expanded="false" aria-controls="trips-menu">
+          <span>Manage Trips</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="menu-items" id="trips-menu">
+          <div class="menu-item" onclick="window.location.href='ViewAllTrips.html'">View All</div>
+          <div class="menu-item" onclick="window.location.href='AddNewTrip.html'">Add New</div>
+        </div>
+      </div>
+
+      <div class="menu-category">
+        <div class="menu-title" onclick="toggleMenu('booking')" role="button" aria-expanded="false" aria-controls="booking-menu">
+          <span>Manage Bookings</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="menu-items show" id="booking-menu">
+          <div class="menu-item" onclick="window.location.href='ManageBooking.html'">View All</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+
+  <main class="main-content" id="mainContent">
+    <header class="header">
+      <h1 class="page-title">Manage Trips</h1>
+      <div class="user-info">
+        <div class="user-avatar">AD</div>
+        <span>Admin User</span>
+        <button class="btn btn-danger" onclick="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </header>
+
+    <section class="trip-management">
+      <div class="search-container">
+        <div class="search-bar">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" class="search-input" id="searchInput" placeholder="Search trips...">
+        </div>
+        <button class="btn btn-primary" onclick="fetchAndDisplayTrips()">
+          <i class="fas fa-sync-alt"></i> Refresh
+        </button>
+        
+      </div>
+
+      <div class="table-responsive">
+        <table class="trip-table">
+          <thead>
+            <tr>
+              <th>Trip ID</th>
+              <th>Origin</th>
+              <th>Destination</th>
+              <th>Date</th>
+              <th>Duration</th>
+              <th>Price</th>
+              <th>Seats</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tripsTableBody">
+            <!-- Trips will be dynamically inserted here by JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- Trip Modal (for editing) -->
+  <div id="tripModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Edit Trip</h2>
+        <span class="close" id="closeModal">&times;</span>
+      </div>
+      <form id="tripForm">
+        <input type="hidden" id="tripId">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Origin</label>
+            <input type="text" class="form-input" id="origin" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Destination</label>
+            <input type="text" class="form-input" id="destination" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date</label>
+            <input type="datetime-local" class="form-input" id="tripDate" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Duration (minutes)</label>
+            <input type="number" class="form-input" id="duration" required min="1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price (EGP)</label>
+            <input type="number" step="0.01" class="form-input" id="price" required min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Total Seats</label>
+            <input type="number" class="form-input" id="totalSeats" required min="1">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Available Seats</label>
+            <input type="number" class="form-input" id="availableSeats" required min="0">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Status</label>
+            <select class="form-input" id="status" required>
+              <option value="true">Active</option>
+              <option value="false">Inactive</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Bus ID</label>
+            <input type="number" class="form-input" id="busId" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Driver ID</label>
+            <input type="number" class="form-input" id="driverId" required>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-danger" id="cancelBtn">Cancel</button>
+          <button type="submit" class="btn btn-success">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="Js/viewAllTrips.js">
+    
+  </script>
+</body>
+</html>
