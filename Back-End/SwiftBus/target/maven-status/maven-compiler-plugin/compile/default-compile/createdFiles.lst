@@ -1,0 +1,5 @@
+com\swift\SwiftBus\Repository\UserRepository.class
+com\swift\SwiftBus\SwiftBus.class
+com\swift\SwiftBus\Controller\UserController.class
+com\swift\SwiftBus\Services\UserServices.class
+com\swift\SwiftBus\Model\User.class
