@@ -4,9 +4,9 @@ CREATE TABLE users (
     user_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL,
-    role VARCHAR(10) CHECK (role IN ('TRAVELER', 'DRIVER', 'ADMIN'))
+    role VARCHAR(10) CHECK (role IN ('TRAVELER', 'DRIVER', 'ADMIN')),
+    dtype VARCHAR(31) DEFAULT 'USER'
 );
-
 
 -- BUSES TABLE
 CREATE TABLE buses (
@@ -37,10 +37,9 @@ CREATE TABLE bookings (
     user_id INT REFERENCES users(user_id),
     trip_id INT REFERENCES trips(trip_id),
     status VARCHAR(20) CHECK (status IN ('APPROVED', 'REJECT', 'PENDING')),
-	passengers NUMBER REFERENCES USERS(USER_ID),
+	passengers int REFERENCES USERS(USER_ID),
 	total_price DECIMAL(10, 2) NOT NULL CHECK (total_price >= 0),
-	booking_date DATE DEFAULT CURRENT_TIMESTAMP,
-    bus_id INT REFERENCES buses(bus_id),
+	booking_date DATE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- TICKETS TABLE
@@ -48,7 +47,7 @@ CREATE TABLE tickets (
     ticket_id SERIAL PRIMARY KEY,
     trip_id INT REFERENCES trips(trip_id),
     booking_id INT REFERENCES bookings(booking_id),
-    pdf_file BYTEA
+    pdf_file_bytea BYTEA
 );
 
 -- FEEDBACK TABLE
@@ -59,3 +58,41 @@ CREATE TABLE feedbacks (
     rating INT CHECK (rating BETWEEN 1 AND 5),
     comment VARCHAR(1000)
 );
+
+-- USERS
+INSERT INTO users (user_name, email, password, role, dtype) VALUES
+('Alice Admin', 'alice@swiftbus.com', 'hashed_password1', 'ADMIN', 'ADMIN'),
+('Bob Driver', 'bob@swiftbus.com', 'hashed_password2', 'DRIVER', 'DRIVER'),
+('Charlie Driver', 'charlie@swiftbus.com', 'hashed_password3', 'DRIVER', 'DRIVER'),
+('Tina Traveler', 'tina@swiftbus.com', 'hashed_password4', 'TRAVELER', 'TRAVELER'),
+('Tom Traveler', 'tom@swiftbus.com', 'hashed_password5', 'TRAVELER', 'TRAVELER');
+
+-- BUSES
+INSERT INTO buses (model, capacity, assigned_driver) VALUES
+('Volvo 9700', 50, 2),  -- Bob Driver
+('Mercedes Tourismo', 45, 3); -- Charlie Driver
+
+
+-- TRIPS
+INSERT INTO trips (origin, destination, date, duration, price, total_seats, available_seats, bus_id, driver_id) VALUES
+('New York', 'Washington DC', '2025-05-10', 5, 29.99, 50, 48, 1, 2),
+('Los Angeles', 'San Francisco', '2025-05-12', 7, 39.99, 45, 43, 2, 3);
+
+
+-- BOOKINGS
+INSERT INTO bookings (user_id, trip_id, status, passengers, total_price) VALUES
+(4, 1, 'APPROVED', 2, 59.98),  -- Tina Traveler, 2 seats
+(5, 2, 'PENDING', 1, 39.99);   -- Tom Traveler, 1 seat
+
+
+-- FEEDBACKS
+INSERT INTO feedbacks (user_id, trip_id, rating, comment) VALUES
+(4, 1, 5, 'Great ride, very comfortable and punctual!'),
+(5, 2, 4, 'Good trip, but the AC was a bit weak.');
+
+
+
+
+
+
+
