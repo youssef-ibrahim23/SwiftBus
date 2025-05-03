@@ -2,11 +2,8 @@ package com.swift.SwiftBus.Model;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -62,20 +59,6 @@ public class Trip {
 
     // Constructors
     public Trip() {
-    }
-
-    public Trip(String origin, String destination, Date date, int duration, double price,
-            int totalSeats, int availableSeats, boolean status, Bus bus, Driver driver) {
-        this.origin = origin;
-        this.destination = destination;
-        this.date = date;
-        this.duration = duration;
-        this.price = price;
-        this.totalSeats = totalSeats;
-        this.availableSeats = availableSeats;
-        this.status = status;
-        this.bus = bus;
-        this.driver = driver;
     }
 
     // Getters and Setters

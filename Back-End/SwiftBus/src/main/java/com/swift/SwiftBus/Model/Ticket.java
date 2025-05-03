@@ -1,7 +1,11 @@
 package com.swift.SwiftBus.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,10 +30,14 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
+    
+    
+    @Column(name = "pdf_file_bytea", columnDefinition = "bytea")
+    private byte[] pdfFileBytea;  // For actual file content
 
-    @Lob
-    @Column(name = "pdf_file", columnDefinition = "bytea")
-    private byte[] pdfFile;  // For actual file content
+    @ManyToOne
+    @JoinColumn(name = "user_id" , referencedColumnName = "user_id")
+    private User user;
 
     // Constructors
     public Ticket() {
@@ -38,7 +46,7 @@ public class Ticket {
     public Ticket(Trip trip, Booking booking, byte[] pdfFile) {
         this.trip = trip;
         this.booking = booking;
-        this.pdfFile = pdfFile;
+        this.pdfFileBytea = pdfFile;
     }
 
     // Getters and Setters
@@ -67,10 +75,20 @@ public class Ticket {
     }
 
     public byte[] getPdfFile() {
-        return pdfFile;
+        return pdfFileBytea;
     }
 
     public void setPdfFile(byte[] pdfFile) {
-        this.pdfFile = pdfFile;
+        this.pdfFileBytea = pdfFile;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    
 }
