@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const resetPasswordForm = document.getElementById('resetPasswordForm');
+    const resetPasswordForm = document.getElementById('loginForm');
     const submitBtn = resetPasswordForm.querySelector('button[type="submit"]');
     
     // Create and add loading spinner

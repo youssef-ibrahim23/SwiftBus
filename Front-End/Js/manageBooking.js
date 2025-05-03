@@ -6,6 +6,13 @@ const bookingManager = {
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
+    const user = JSON.parse(localStorage.getItem('user'));
+  if (!user || !user.userId) {
+    console.log(user);
+    alert("You're not logged in.");
+    window.location.href = 'login.html';
+    return;
+  }
     fetchAndDisplayBookings();
     setupEventListeners();
 });

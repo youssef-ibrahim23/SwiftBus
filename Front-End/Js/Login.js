@@ -76,7 +76,7 @@ form.addEventListener('submit', async (e) => {
 
         if (response.ok) {
             const data = await response.json();
-            showToast('Login successful! 🎉');
+            showToast('Login successful!');
             localStorage.setItem('user', JSON.stringify(data));
 
             setTimeout(() => {

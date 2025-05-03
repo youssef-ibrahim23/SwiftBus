@@ -119,13 +119,56 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    function showErrorMessage(message) {
-        // You could create a global error display area or use alert for simplicity
-        alert(message);
-    }
-    
     function showSuccessMessage(message) {
-        // You could create a success message display area or use alert for simplicity
-        alert(message);
+        // Create success notification
+        const notification = document.createElement('div');
+        notification.className = 'notification success';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        // Auto-remove after 3 seconds
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
     }
+
+    function showErrorMessage(message) {
+        // Create error notification
+        const notification = document.createElement('div');
+        notification.className = 'notification error';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            notification.remove();
+        }, 5000);
+    }
+
+    // Add notification styles (can also be in your CSS file)
+    const notificationStyle = document.createElement('style');
+    notificationStyle.textContent = `
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+            max-width: 300px;
+        }
+        .success {
+            background-color: #4CAF50;
+        }
+        .error {
+            background-color: #F44336;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    `;
+    document.head.appendChild(notificationStyle);
 });

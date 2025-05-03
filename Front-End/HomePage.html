@@ -36,7 +36,7 @@
     width: 250px;
     background-color: #1f2937;
     color: white;
-    min-height: 100vh;
+    min-height: 200vh;
     padding: 20px;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .sidebar-menu .menu-category {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .menu-title {
@@ -60,20 +60,23 @@
 }
 
 .menu-items {
-    margin-top: 10px;
-    padding-left: 10px;
-    display: none;
+    max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  margin-top: 10px;
 }
 
 .menu-items.show {
     display: block;
+    max-height: 500px;
 }
 
 .menu-item {
-    padding: 8px 0;
-    cursor: pointer;
+    padding: 0.75rem 1.5rem 0.75rem 2.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--text-color);
 }
-
 .menu-item.active {
     font-weight: 600;
     color: #1d4ed8;
@@ -253,7 +256,7 @@
                 </div>
                 <div class="menu-items show" id="overview-menu">
                     <div class="menu-item" onclick="window.location.href='HomePage.html'">Dashboard</div>
-                    <div class="menu-item">Reports</div>
+                    <div class="menu-item" onclick="window.location.href='ReportPage.html'">Reports</div>
                 </div>
             </div>
 

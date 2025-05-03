@@ -188,161 +188,168 @@ const tripManager = {
     renderTripsTable(filteredTrips);
   }
 
-  function showTripDetails(tripId) {
-    const trip = tripManager.allTrips.find(t => t.tripId == tripId);
-    if (!trip) return;
+  // Update the showTripDetails function
+function showTripDetails(tripId) {
+  const trip = tripManager.allTrips.find(t => t.tripId == tripId);
+  if (!trip) return;
 
-    const bus = tripManager.buses.find(b => b.busId === trip.busId);
-    const driver = tripManager.drivers.find(d => d.userId === trip.driverId);
-    
-    const tripDate = new Date(trip.departureTime);
-    const formattedDate = tripDate.toLocaleDateString();
-    const formattedTime = tripDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-    
-    
-    const formattedDuration = `${trip.duration} h `;
+  // Find related bus and driver
+  const bus = tripManager.buses.find(b => b.busId == trip.busId);
+  const driver = tripManager.drivers.find(d => d.userId == trip.driverId);
 
-    const modalHtml = `
-      <div class="modal" id="tripDetailsModal">
-        <div class="modal-content">
-          <span class="close" onclick="closeModal('tripDetailsModal')">&times;</span>
-          <div class="modal-header">
-            <h2>Trip Details</h2>
+  const tripDate = new Date(trip.departureTime);
+  const formattedDate = tripDate.toLocaleDateString();
+  const formattedTime = tripDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+  
+  const durationHours = Math.floor(trip.duration / 60);
+  const durationMinutes = trip.duration % 60;
+  const formattedDuration = `${durationHours}h ${durationMinutes}m`;
+
+  const modalHtml = `
+    <div class="modal" id="tripDetailsModal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('tripDetailsModal')">&times;</span>
+        <div class="modal-header">
+          <h2>Trip Details</h2>
+        </div>
+        <div class="modal-body">
+          <div class="detail-row">
+            <span class="detail-label">Trip ID:</span>
+            <span class="detail-value">${trip.tripId}</span>
           </div>
-          <div class="modal-body">
-            <div class="detail-row">
-              <span class="detail-label">Trip ID:</span>
-              <span class="detail-value">${trip.tripId}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Route:</span>
-              <span class="detail-value">${trip.origin} → ${trip.destination}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Departure:</span>
-              <span class="detail-value">${formattedDate} at ${formattedTime}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Duration:</span>
-              <span class="detail-value">${formattedDuration}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Price:</span>
-              <span class="detail-value">${trip.price.toFixed(2)} EGP</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Seats:</span>
-              <span class="detail-value">${trip.availableSeats} / ${trip.totalSeats} available</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Status:</span>
-              <span class="detail-value ${trip.status ? 'status-active' : 'status-inactive'}">
-                ${trip.status ? 'Active' : 'Inactive'}
-              </span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Bus:</span>
-              <span class="detail-value">${trip.bus.model} (ID: ${trip.bus.busId})</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">Driver:</span>
-              <span class="detail-value">${trip.driver.userName} (ID: ${trip.driver.driverId})</span>
-            </div>
+          <div class="detail-row">
+            <span class="detail-label">Route:</span>
+            <span class="detail-value">${trip.origin} → ${trip.destination}</span>
           </div>
-          <div class="modal-actions">
-            <button class="btn btn-primary" onclick="closeModal('tripDetailsModal')">Close</button>
+          <div class="detail-row">
+            <span class="detail-label">Departure:</span>
+            <span class="detail-value">${formattedDate} at ${formattedTime}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Duration:</span>
+            <span class="detail-value">${formattedDuration}</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Price:</span>
+            <span class="detail-value">${trip.price.toFixed(2)} EGP</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Seats:</span>
+            <span class="detail-value">${trip.availableSeats} / ${trip.totalSeats} available</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Status:</span>
+            <span class="detail-value ${trip.status ? 'status-active' : 'status-inactive'}">
+              ${trip.status ? 'Active' : 'Inactive'}
+            </span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Bus:</span>
+            <span class="detail-value">${bus?.model || 'N/A'} (ID: ${trip.busId})</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Driver:</span>
+            <span class="detail-value">${driver?.userName || 'N/A'} (ID: ${trip.driverId})</span>
           </div>
         </div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" onclick="closeModal('tripDetailsModal')">Close</button>
+        </div>
       </div>
-    `;
+    </div>
+  `;
 
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
-    document.getElementById('tripDetailsModal').style.display = 'block';
-  }
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+  document.getElementById('tripDetailsModal').style.display = 'block';
+}
 
-  function showEditTripModal(tripId) {
-    const trip = tripManager.allTrips.find(t => t.tripId == tripId);
-    if (!trip) return;
+// Update the showEditTripModal function
+function showEditTripModal(tripId) {
+  const trip = tripManager.allTrips.find(t => t.tripId == tripId);
+  if (!trip) return;
 
-    const modal = document.getElementById('tripModal');
-    const form = document.getElementById('tripForm');
-    
-    // Convert departure time to local date string for input
-    const tripDate = new Date(trip.departureTime);
-    const formattedDate = tripDate.toISOString().slice(0, 16);
-    
-    // Set form values
-    form.querySelector('#tripId').value = trip.tripId;
-    form.querySelector('#origin').value = trip.origin;
-    form.querySelector('#destination').value = trip.destination;
-    form.querySelector('#tripDate').value = formattedDate;
-    form.querySelector('#duration').value = trip.duration;
-    form.querySelector('#price').value = trip.price.toFixed(2);
-    form.querySelector('#totalSeats').value = trip.totalSeats;
-    form.querySelector('#availableSeats').value = trip.availableSeats;
-    form.querySelector('#status').value = trip.status ? 'true' : 'false';
-    form.querySelector('#busId').value = trip.busId;
-    form.querySelector('#driverId').value = trip.driverId;
-    
-    // Update modal title
-    document.getElementById('modalTitle').textContent = 'Edit Trip';
-    
-    // Show modal
-    modal.style.display = 'block';
-  }
+  const modal = document.getElementById('tripModal');
+  const form = document.getElementById('tripForm');
+  
+  // Convert departure time to local date string for input
+  const tripDate = new Date(trip.departureTime);
+  const formattedDate = tripDate.toISOString().slice(0, 16);
+  
+  // Set form values
+  form.querySelector('#tripId').value = trip.tripId;
+  form.querySelector('#origin').value = trip.origin;
+  form.querySelector('#destination').value = trip.destination;
+  form.querySelector('#tripDate').value = trip.date;
+  form.querySelector('#duration').value = trip.duration;
+  form.querySelector('#price').value = trip.price.toFixed(2);
+  form.querySelector('#totalSeats').value = trip.totalSeats;
+  form.querySelector('#availableSeats').value = trip.availableSeats;
+  form.querySelector('#status').value = trip.status ? 'true' : 'false';
+  form.querySelector('#busId').value = trip.bus.busId;
+  form.querySelector('#driverId').value = trip.driver.userId;
+  
+  // Update modal title
+  document.getElementById('modalTitle').textContent = 'Edit Trip';
+  
+  // Show modal
+  modal.style.display = 'block';
+}
 
-  async function handleTripFormSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const submitBtn = form.querySelector('button[type="submit"]');
-    
-    // Show loading state
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-    submitBtn.disabled = true;
+// Update the handleTripFormSubmit function
+async function handleTripFormSubmit(e) {
+  e.preventDefault();
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  
+  // Show loading state
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+  submitBtn.disabled = true;
 
-    try {
+  try {
+      const tripDate = new Date(form.querySelector('#tripDate').value);
+      
       const formData = {
-        tripId: form.querySelector('#tripId').value,
-        origin: form.querySelector('#origin').value,
-        destination: form.querySelector('#destination').value,
-        duration: parseInt(form.querySelector('#duration').value),
-        price: parseFloat(form.querySelector('#price').value),
-        totalSeats: parseInt(form.querySelector('#totalSeats').value),
-        availableSeats: parseInt(form.querySelector('#availableSeats').value),
-        status: form.querySelector('#status').value === 'true',
-        bus: { busId : parseInt(form.querySelector('#busId').value) },
-        driver:  { userId : parseInt(form.querySelector('#driverId').value)}
+          tripId: parseInt(form.querySelector('#tripId').value),
+          origin: form.querySelector('#origin').value,
+          destination: form.querySelector('#destination').value,
+          duration: parseInt(form.querySelector('#duration').value),
+          price: parseFloat(form.querySelector('#price').value),
+          totalSeats: parseInt(form.querySelector('#totalSeats').value),
+          availableSeats: parseInt(form.querySelector('#availableSeats').value),
+          status: form.querySelector('#status').value === 'true',
+          busId: parseInt(form.querySelector('#busId').value),
+          driverId: parseInt(form.querySelector('#driverId').value)
       };
 
       const method = formData.tripId ? 'PUT' : 'POST';
       const url = formData.tripId 
-        ? 'http://localhost:8081/api/admin/trips/edit'
-        : 'http://localhost:8081/api/admin/trips/add';
+          ? 'http://localhost:8081/api/admin/trips'
+          : 'http://localhost:8081/api/admin/trips';
 
       const response = await fetch(url, {
-        method: method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
+          method: method,
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to save trip');
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to save trip');
       }
 
       showNotification('Trip saved successfully', 'success');
       closeModal('tripModal');
       await fetchAndDisplayTrips();
-    } catch (error) {
+  } catch (error) {
       console.error('Error saving trip:', error);
       showNotification(`Error: ${error.message}`, 'error');
-    } finally {
+  } finally {
       submitBtn.innerHTML = 'Save Changes';
       submitBtn.disabled = false;
-    }
   }
+}
 
   function showDeleteConfirmation(tripId) {
     const trip = tripManager.allTrips.find(t => t.tripId == tripId);
@@ -390,7 +397,7 @@ const tripManager = {
     deleteBtn.disabled = true;
 
     try {
-      const response = await fetch(`http://localhost:8081/api/admin/trips/delete/${tripId}`, {
+      const response = await fetch(`http://localhost:8081/api/admin/trips/${tripId}`, {
         method: 'DELETE'
       });
 

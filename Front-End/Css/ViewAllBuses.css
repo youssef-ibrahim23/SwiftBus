@@ -37,11 +37,12 @@ body {
   left: 0;
   width: 250px;
   height: 100vh;
-  background-color: var(--sidebar-bg);
   color: var(--text-color);
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   transition: var(--transition);
   z-index: 100;
+  background-color: #1f2937;
+  min-height: 100vh;
 }
 
 .main-content {
@@ -88,13 +89,14 @@ body {
 .sidebar-header {
   padding: 1.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  background-color: var(--menu-header-bg);
+  background-color: #1f2937;
+  text-align: center;
 }
 
 .sidebar-header h2 {
-  font-size: 1.25rem;
+  font-size: 2.30rem;
   font-weight: 600;
-  color: var(--text-color);
+  color: white;
 }
 
 .menu-category {
@@ -109,6 +111,7 @@ body {
   cursor: pointer;
   font-weight: 500;
   transition: var(--transition);
+  color: white;
 }
 
 .menu-title:hover {
@@ -123,6 +126,7 @@ body {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease;
+  margin-top: 10px;
 }
 
 .menu-items.show {

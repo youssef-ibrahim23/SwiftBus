@@ -62,11 +62,12 @@
                     <span>From</span>
                 </label>
                 <select class="form-control" id="from">
-                    <option>Cairo</option>
-                    <option>Alexandria</option>
-                    <option>Giza</option>
-                    <option>Luxor</option>
-                    <option>Aswan</option>
+                    <option value="">-- Select Origin --</option>
+                    <option value="Cairo">Cairo</option>
+                    <option value="Alexandria">Alexandria</option>
+                    <option value="Giza">Giza</option>
+                    <option value="Luxor">Luxor</option>
+                    <option value="Aswan">Aswan</option>
                 </select>
             </div>
             
@@ -76,11 +77,12 @@
                     <span>To</span>
                 </label>
                 <select class="form-control" id="to">
-                    <option>Alexandria</option>
-                    <option>Cairo</option>
-                    <option>Giza</option>
-                    <option>Luxor</option>
-                    <option>Aswan</option>
+                    <option value="">-- Select Destination --</option>
+                    <option value="Cairo">Cairo</option>
+                    <option value="Alexandria">Alexandria</option>
+                    <option value="Giza">Giza</option>
+                    <option value="Luxor">Luxor</option>
+                    <option value="Aswan">Aswan</option>
                 </select>
             </div>
             
@@ -98,15 +100,16 @@
                     <span>Passengers</span>
                 </label>
                 <div class="passenger-controls">
-                    <button class="passenger-btn" id="decreasePassengers">-</button>
+                    <button type="button" class="passenger-btn" id="decreasePassengers">-</button>
                     <span class="passenger-count" id="passengerCount">1</span>
-                    <button class="passenger-btn" id="increasePassengers">+</button>
+                    <button type="button" class="passenger-btn" id="increasePassengers">+</button>
                 </div>
             </div>
             
             <button class="search-btn" id="searchBtn" disabled>
                 <i class="fas fa-search"></i> Search Trips
             </button>
+            
         </div>
         
         <div class="hero-text">

@@ -21,7 +21,7 @@ body {
 }
 
 .sidebar-menu .menu-category {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .menu-title {
@@ -76,7 +76,7 @@ body {
 .user-avatar {
     width: 35px;
     height: 35px;
-    background-color: #1d4ed8;
+    background-color: #008cff;
     color: white;
     border-radius: 50%;
     display: flex;
@@ -128,7 +128,8 @@ body {
 }
 
 .upload-btn {
-    background-color: #1d4ed8;
+    background-color: #008cff;
+
     color: white;
     border: none;
     padding: 10px 16px;
@@ -193,6 +194,7 @@ input, select {
 }
 
 .btn-submit {
-    background-color: #1d4ed8;
+    background-color: #008cff;
+
     color: white;
 }
