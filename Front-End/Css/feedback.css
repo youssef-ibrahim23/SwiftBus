@@ -180,13 +180,14 @@ textarea.form-control {
     font-size: 1.5rem;
     color: #ddd;
     cursor: pointer;
-    transition: var(--transition);
+    transition: color 0.2s ease;
 }
 
 .rating-star:hover,
 .rating-star.active {
-    color: #ffc107;
+    color: #ffc107; /* Gold */
 }
+
 
 .submit-btn {
     width: 100%;
