@@ -44,14 +44,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Update star appearance based on current/hover state
         function updateStarDisplay() {
-            const displayRating = hoverRating || currentRating;
             ratingStars.forEach(star => {
                 const starRating = parseInt(star.getAttribute('data-rating'));
-                star.classList.toggle('selected', starRating <= displayRating);
-                star.classList.toggle('hovered', starRating <= hoverRating && hoverRating > 0);
+        
+                if (hoverRating > 0) {
+                    star.classList.toggle('active', starRating <= hoverRating);
+                } else {
+                    star.classList.toggle('active', starRating <= currentRating);
+                }
             });
         }
-    }
+    }       
 
     // Handle form submission
     async function submitFeedback(e) {
