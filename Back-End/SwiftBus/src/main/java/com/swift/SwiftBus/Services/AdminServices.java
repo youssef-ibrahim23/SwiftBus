@@ -166,7 +166,7 @@ public class AdminServices {
     }
 
     public boolean rejectBooking(int id) {
-        boolean result = updateBookingStatus(id, "REJECTED");
+        boolean result = updateBookingStatus(id, "REJECT");
         if (result) {
             logger.info("Booking ID {} rejected", id);
         }
@@ -193,114 +193,115 @@ public class AdminServices {
     public Ticket generateTicketPdf(int bookingId) {
         Booking booking = bookingRepository.findById(bookingId)
                 .orElseThrow(() -> new IllegalArgumentException("Booking not found"));
-
+    
         Trip trip = tripRepository.findById(booking.getTrip().getTripId())
                 .orElseThrow(() -> new IllegalArgumentException("Trip not found"));
-
+    
         User user = userRepository.findById(booking.getUser().getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
-
+    
         Ticket ticket = new Ticket();
         ticket.setBooking(booking);
         ticket.setTrip(trip);
         ticket.setUser(user);
-
+    
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
             Document document = new Document();
             PdfWriter.getInstance(document, outputStream);
             document.open();
-
+    
             // Fonts
-            Font titleFont = new Font(Font.FontFamily.HELVETICA, 20, Font.BOLD);
-            Font headerFont = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
+            Font titleFont = new Font(Font.FontFamily.HELVETICA, 22, Font.BOLD, BaseColor.DARK_GRAY);
+            Font sectionFont = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD, BaseColor.BLACK);
+            Font headerFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
             Font regularFont = new Font(Font.FontFamily.HELVETICA, 12);
-            Font smallFont = new Font(Font.FontFamily.HELVETICA, 10);
-
+    
             // Title
-            Paragraph title = new Paragraph("SWIFTBUS - E-TICKET", titleFont);
+            Paragraph title = new Paragraph("SWIFTBUS E-TICKET", titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
+            title.setSpacingAfter(10f);
             document.add(title);
-
+    
             LineSeparator separator = new LineSeparator();
             separator.setOffset(-2);
             document.add(new Chunk(separator));
             document.add(Chunk.NEWLINE);
-
-            // Booking Info Table
+    
+            // Section: Booking Info
+            document.add(new Paragraph("Booking Information", sectionFont));
+            document.add(Chunk.NEWLINE);
             PdfPTable bookingTable = new PdfPTable(2);
             bookingTable.setWidthPercentage(100);
-            bookingTable.setSpacingBefore(10f);
-            bookingTable.setSpacingAfter(10f);
-
-            bookingTable.addCell(getCell("Ticket Number:", headerFont));
-            bookingTable.addCell(getCell(String.valueOf(ticket.getTicketId()), regularFont));
-            bookingTable.addCell(getCell("Booking Date:", headerFont));
-            bookingTable.addCell(getCell(String.valueOf(booking.getBooking_date()), regularFont));
-
-            document.add(new Paragraph("Booking Information", headerFont));
+            bookingTable.addCell(getStyledCell("Ticket Number:", headerFont));
+            bookingTable.addCell(getStyledCell(String.valueOf(ticket.getTicketId()), regularFont));
+            bookingTable.addCell(getStyledCell("Booking Date:", headerFont));
+            bookingTable.addCell(getStyledCell(String.valueOf(booking.getBooking_date()), regularFont));
             document.add(bookingTable);
-
-            // Passenger Info Table
+            document.add(Chunk.NEWLINE);
+    
+            // Section: Passenger Info
+            document.add(new Paragraph("Passenger Information", sectionFont));
+            document.add(Chunk.NEWLINE);
             PdfPTable passengerTable = new PdfPTable(2);
             passengerTable.setWidthPercentage(100);
-            passengerTable.setSpacingBefore(10f);
-            passengerTable.setSpacingAfter(10f);
-
-            passengerTable.addCell(getCell("Passenger Name:", headerFont));
-            passengerTable.addCell(getCell(booking.getUser().getUserName(), regularFont));
-            passengerTable.addCell(getCell("Passengers:", headerFont));
-            passengerTable.addCell(getCell(String.valueOf(booking.getPassengers()), regularFont));
-
-            document.add(new Paragraph("Passenger Information", headerFont));
+            passengerTable.addCell(getStyledCell("User Name:", headerFont));
+            passengerTable.addCell(getStyledCell(user.getUserName(), regularFont));
+            passengerTable.addCell(getStyledCell("Passengers:", headerFont));
+            passengerTable.addCell(getStyledCell(String.valueOf(booking.getPassengers()), regularFont));
             document.add(passengerTable);
-
-            // Trip Info Table
+            document.add(Chunk.NEWLINE);
+    
+            // Section: Trip Info
+            document.add(new Paragraph("Trip Details", sectionFont));
+            document.add(Chunk.NEWLINE);
             PdfPTable tripTable = new PdfPTable(2);
             tripTable.setWidthPercentage(100);
-            tripTable.setSpacingBefore(10f);
-            tripTable.setSpacingAfter(10f);
-
-            tripTable.addCell(getCell("Route:", headerFont));
-            tripTable.addCell(getCell(trip.getOrigin() + " to " + trip.getDestination(), regularFont));
-            tripTable.addCell(getCell("Date:", headerFont));
-            tripTable.addCell(getCell(String.valueOf(trip.getDate()), regularFont));
-            tripTable.addCell(getCell("Duration:", headerFont));
-            tripTable.addCell(getCell(""+trip.getDuration()+"", regularFont));
-            tripTable.addCell(getCell("Bus Model:", headerFont));
-            tripTable.addCell(getCell(trip.getBus().getModel(), regularFont));
-
-            document.add(new Paragraph("Trip Details", headerFont));
+            tripTable.addCell(getStyledCell("Trip Id:", headerFont));
+            tripTable.addCell(getStyledCell("" + trip.getTripId() + "", regularFont));
+            tripTable.addCell(getStyledCell("Route:", headerFont));
+            tripTable.addCell(getStyledCell(trip.getOrigin() + " to " + trip.getDestination(), regularFont));
+            tripTable.addCell(getStyledCell("Date:", headerFont));
+            tripTable.addCell(getStyledCell(String.valueOf(trip.getDate()), regularFont));
+            tripTable.addCell(getStyledCell("Duration:", headerFont));
+            tripTable.addCell(getStyledCell(trip.getDuration() + " hrs", regularFont));
+            tripTable.addCell(getStyledCell("Bus Model:", headerFont));
+            tripTable.addCell(getStyledCell(trip.getBus().getModel(), regularFont));
             document.add(tripTable);
-
-            // Fare Info Table
+            document.add(Chunk.NEWLINE);
+    
+            // Section: Fare Info
+            document.add(new Paragraph("Fare Details", sectionFont));
+            document.add(Chunk.NEWLINE);
             PdfPTable fareTable = new PdfPTable(2);
             fareTable.setWidthPercentage(100);
-            fareTable.setSpacingBefore(10f);
-            fareTable.setSpacingAfter(10f);
-
-            fareTable.addCell(getCell("Total Amount:", headerFont));
-            fareTable.addCell(getCell("$" + booking.getPrice(), regularFont));
-            fareTable.addCell(getCell("Status:", headerFont));
-            fareTable.addCell(getCell(booking.getStatus(), regularFont));
-
-            document.add(new Paragraph("Fare Details", headerFont));
+            fareTable.addCell(getStyledCell("Total Amount:", headerFont));
+            fareTable.addCell(getStyledCell("$" + booking.getPrice(), regularFont));
+            fareTable.addCell(getStyledCell("Status:", headerFont));
+            fareTable.addCell(getStyledCell(booking.getStatus(), regularFont));
             document.add(fareTable);
-
-            // Close Document and Ticket
+            document.add(Chunk.NEWLINE);
+    
+            // Footer Note
+            Paragraph footer = new Paragraph("Thank you for choosing SwiftBus.\nFor support, contact us at support@swiftbus.com", new Font(Font.FontFamily.HELVETICA, 10, Font.ITALIC, BaseColor.GRAY));
+            footer.setAlignment(Element.ALIGN_CENTER);
+            footer.setSpacingBefore(20f);
+            document.add(footer);
+    
             document.close();
             ticket.setPdfFile(outputStream.toByteArray());
             ticketRepository.save(ticket);
-
+    
         } catch (DocumentException | IOException e) {
             logger.error("Error generating ticket PDF", e);
         }
-
+    
         return ticket;
     }
-
-    private PdfPCell getCell(String text, Font font) {
-        PdfPCell cell = new PdfPCell(new Phrase(text, font));
-        cell.setBorder(Rectangle.NO_BORDER);
+    // Utility: Create styled cell
+    PdfPCell getStyledCell(String content, Font font) {
+        PdfPCell cell = new PdfPCell(new Phrase(content, font));
+        cell.setPadding(8f);
+        cell.setBorderColor(BaseColor.LIGHT_GRAY);
         return cell;
     }
 
@@ -331,5 +332,9 @@ public class AdminServices {
             return true;
         }
         return false;
+    }
+
+    public List<Bus> getAllBuses() {
+        return busRepository.findAll();
     }
 }
