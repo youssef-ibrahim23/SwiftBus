@@ -50,7 +50,7 @@ async function fetchPendingBookings() {
             const row = document.createElement('tr');
             
             row.innerHTML = `
-                <td>${booking.id || 'N/A'}</td>
+                
                 <td>${booking.user.userName}</td>
                 <td>${booking.trip.origin} to ${booking.trip.destination}</td>
                 <td>${formatDate(booking.booking_date)}</td>

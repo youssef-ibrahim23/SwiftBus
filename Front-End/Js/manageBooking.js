@@ -100,9 +100,9 @@ function renderBookingsTable(bookings) {
         }
 
         row.innerHTML = `
-            <td>${booking.id}</td>
-            <td>${booking.user.userId}</td>
-            <td>${booking.trip.tripId}</td>
+            
+            <td>${booking.user.userName}</td>
+            <td>${booking.trip.origin} to ${booking.trip.destination}</td>
             <td>${statusBadge}</td>
             <td>
                 <div>${formattedDate}</div>

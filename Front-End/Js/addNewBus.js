@@ -1,6 +1,4 @@
-// addNewBus.js
-
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // Initialize form submission
     const addBusForm = document.getElementById('addBusForm');
     if (addBusForm) {
@@ -23,7 +21,66 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active');
         });
     });
+
+    // Load available drivers when page loads
+    await populateDriverOptions();
 });
+
+async function populateDriverOptions() {
+    const driverSelect = document.getElementById('assigned_driver');
+    
+    // Show loading state
+    driverSelect.classList.add('select-loading');
+    driverSelect.disabled = true;
+    
+    try {
+        const response = await fetch('http://localhost:8081/api/admin/users');
+        if (!response.ok) {
+            throw new Error('Failed to fetch drivers');
+        }
+
+        const users = await response.json();
+        const drivers = users.filter(user => user.role === 'DRIVER');
+        
+        // Clear existing options except the first one
+        while (driverSelect.options.length > 1) {
+            driverSelect.remove(1);
+        }
+        
+        // Add new options
+        drivers.forEach(driver => {
+            const option = document.createElement('option');
+            option.value = driver.userId;
+            option.textContent = `${driver.userName} (ID: ${driver.userId})`;
+            driverSelect.appendChild(option);
+        });
+
+        // If no drivers available, show a message
+        if (drivers.length === 0) {
+            const option = document.createElement('option');
+            option.value = '';
+            option.textContent = 'No available drivers';
+            option.disabled = true;
+            option.selected = true;
+            driverSelect.appendChild(option);
+        }
+    } catch (error) {
+        console.error('Error fetching drivers:', error);
+        showAlert('Failed to load driver information', 'error');
+        
+        // Add error option
+        const option = document.createElement('option');
+        option.value = '';
+        option.textContent = 'Error loading drivers';
+        option.disabled = true;
+        option.selected = true;
+        driverSelect.appendChild(option);
+    } finally {
+        // Remove loading state
+        driverSelect.classList.remove('select-loading');
+        driverSelect.disabled = false;
+    }
+}
 
 async function handleFormSubmit(event) {
     event.preventDefault();
@@ -33,7 +90,7 @@ async function handleFormSubmit(event) {
         model: document.getElementById('model').value.trim(),
         capacity: parseInt(document.getElementById('capacity').value),
         driver: {
-            userId : parseInt(document.getElementById('assigned_driver').value)
+            userId: parseInt(document.getElementById('assigned_driver').value)
         }
     };
 
@@ -54,8 +111,6 @@ async function handleFormSubmit(event) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // Add authorization header if needed
-                // 'Authorization': 'Bearer ' + yourAuthToken
             },
             body: JSON.stringify(busData)
         });
@@ -68,17 +123,11 @@ async function handleFormSubmit(event) {
         const result = await response.json();
         showAlert('Bus added successfully!', 'success');
 
-// Wait 2 seconds before redirecting
-setTimeout(() => {
-    window.location.href = 'ViewAllBuses.html';
-}, 1300); // 20
+        // Wait 1.3 seconds before redirecting
+        setTimeout(() => {
+            window.location.href = 'ViewAllBuses.html';
+        }, 1300);
         
-        // Reset form
-        document.getElementById('addBusForm').reset();
-        
-        // Optionally redirect after success
-        // window.location.href = 'ViewAllBuses.html';
-
     } catch (error) {
         console.error('Error adding bus:', error);
         showAlert(error.message || 'Failed to add bus. Please try again.', 'error');
@@ -91,8 +140,13 @@ setTimeout(() => {
 
 function validateForm(busData) {
     // Basic validation
-    if (!busData.model || isNaN(busData.capacity) || isNaN(busData.driver.userId)) {
-        showAlert('Please fill in all required fields', 'error');
+    if (!busData.model || busData.model.length < 2) {
+        showAlert('Please enter a valid bus model (at least 2 characters)', 'error');
+        return false;
+    }
+
+    if (isNaN(busData.capacity)) {
+        showAlert('Please enter a valid capacity number', 'error');
         return false;
     }
 
@@ -101,8 +155,8 @@ function validateForm(busData) {
         return false;
     }
 
-    if (busData.assigned_driver <= 0) {
-        showAlert('Driver ID must be valid', 'error');
+    if (isNaN(busData.driver.userId) || busData.driver.userId <= 0) {
+        showAlert('Please select a valid driver', 'error');
         return false;
     }
 
@@ -152,21 +206,6 @@ function toggleMenu(menuId) {
     icon.style.transform = menu.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0deg)';
 }
 
-// Initialize the page
-document.addEventListener('DOMContentLoaded', function() {
-    // Set active menu item
-    const menuItems = document.querySelectorAll('.menu-item');
-    menuItems.forEach(item => {
-        item.addEventListener('click', function() {
-            menuItems.forEach(i => i.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-
-    // Add Schedule button functionality
-
-   });
-
 // Toggle sidebar on mobile
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
@@ -210,6 +249,30 @@ style.textContent = `
     
     .fa-spinner {
         margin-right: 8px;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    .select-loading {
+        position: relative;
+        color: transparent;
+    }
+    
+    .select-loading::after {
+        content: "";
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        border: 2px solid #f3f3f3;
+        border-top: 2px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
     }
 `;
 document.head.appendChild(style);

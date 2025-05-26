@@ -102,7 +102,7 @@ const tripManager = {
         '<span class="status-badge status-inactive">Inactive</span>';
 
       row.innerHTML = `
-        <td>${trip.tripId}</td>
+        
         <td>${trip.origin}</td>
         <td>${trip.destination}</td>
         <td>

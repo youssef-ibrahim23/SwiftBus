@@ -152,7 +152,7 @@ class BusManager {
     createBusRow(bus) {
         return `
             <tr data-bus-id="${bus.busId}">
-                <td>${bus.busId}</td>
+                
                 <td>${bus.model}</td>
                 <td>${bus.capacity}</td>
                 <td>${bus.driver?.userId ? `${bus.driver.userName} (ID: ${bus.driver.userId})` : 'N/A'}</td>

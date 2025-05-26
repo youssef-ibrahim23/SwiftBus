@@ -106,7 +106,6 @@ function renderDriversTable(drivers) {
 function createDriverRow(driver) {
     return `
         <tr data-driver-id="${driver.userId}">
-            <td>${driver.userId}</td>
             <td>${driver.userName}</td>
             <td>${driver.email}</td>
             <td class="actions">
@@ -175,12 +174,14 @@ async function showViewModal(driverId) {
         showError('Driver not found');
         return;
     }
+    console.log(driver)
 
     document.getElementById('viewDriverId').textContent = driver.userId || 'N/A';
     document.getElementById('viewDriverName').textContent = driver.userName || 'N/A';
     document.getElementById('viewDriverEmail').textContent = driver.email || 'N/A';
     document.getElementById('viewDriverLicense').textContent = driver.licenseNumber || 'N/A';
     document.getElementById('viewDriverStatus').textContent = driver.status || 'N/A';
+    
 
     openModal('viewDriverModal');
 }
