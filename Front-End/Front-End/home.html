@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwiftBus - Book Your Journey</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="Css/home.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-bus logo-icon"></i>
+            <span class="logo-text">SwiftBus</span>
+        </div>
+        
+        <div class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="mybooking.html">My Bookings</a>
+            <a href="download.html">Download Ticket</a>
+            <a href="feedback.html">Give Feedback</a>
+            <a href="login.html">Logout</a>
+        </div>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        
+        <button class="user-btn">
+            <i class="fas fa-user-circle"></i>
+        </button>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-links">
+            <a href="home.html">Home</a>
+            <a href="mybooking.html">My Bookings</a>
+            <a href="download.html">Download Ticket</a>
+            <a href="feedback.html">Give Feedback</a>
+            <a href="login.html">Logout</a>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <img src="Css/Images/91349cc8-324e-47aa-f852-13875bc48046.webp" alt="SwiftBus" class="hero-image">
+        
+        <div class="booking-card">
+            <h2 class="booking-title">SwiftBus</h2>
+            
+            <div class="trip-toggle">
+                <button class="trip-btn active" id="oneWayBtn">One Way</button>
+                <button class="trip-btn inactive" id="roundTripBtn">Round Trip</button>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="from">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>From</span>
+                </label>
+                <select class="form-control" id="from">
+                    <option value="">-- Select Origin --</option>
+                    <option value="Cairo">Cairo</option>
+                    <option value="Alexandria">Alexandria</option>
+                    <option value="Giza">Giza</option>
+                    <option value="Luxor">Luxor</option>
+                    <option value="Aswan">Aswan</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="to">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>To</span>
+                </label>
+                <select class="form-control" id="to">
+                    <option value="">-- Select Destination --</option>
+                    <option value="Cairo">Cairo</option>
+                    <option value="Alexandria">Alexandria</option>
+                    <option value="Giza">Giza</option>
+                    <option value="Luxor">Luxor</option>
+                    <option value="Aswan">Aswan</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="date">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Date</span>
+                </label>
+                <input type="date" class="form-control" id="date">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="passengers">
+                    <i class="fas fa-user-friends"></i>
+                    <span>Passengers</span>
+                </label>
+                <div class="passenger-controls">
+                    <button type="button" class="passenger-btn" id="decreasePassengers">-</button>
+                    <span class="passenger-count" id="passengerCount">1</span>
+                    <button type="button" class="passenger-btn" id="increasePassengers">+</button>
+                </div>
+            </div>
+            
+            <button class="search-btn" id="searchBtn" disabled>
+                <i class="fas fa-search"></i> Search Trips
+            </button>
+            
+        </div>
+        
+        <div class="hero-text">
+            Book Your Bus Trip<br>Now!
+        </div>
+    </section>
+
+    <script src="Js/home.js"></script>
+</body>
+</html>

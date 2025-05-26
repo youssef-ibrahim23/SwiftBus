@@ -1,0 +1,161 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+body {
+    min-height: 100vh;
+    background: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    display: flex;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px #58a6ff;
+}
+
+.login-container {
+    background: white;
+    padding: 50px 60px;
+    width: 400px;
+}
+
+.graphic-container {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #58a6ff;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    color: #58a6ff;
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    color: darkgray;
+    font-size: 15px;
+}
+
+.form-group {
+    margin: 25px 0;
+}
+
+.form-group h3 {
+    color: #4a5568;
+    font-size: 15px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.input-field {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 15px;
+    
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #58a6ff;
+}
+
+.forgot-password {
+    text-align: right;
+    margin: 20px 0 30px;
+}
+
+.forgot-password a {
+    color: #4a5568;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 15px;
+    background: #58a6ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.login-btn:hover {
+    background: #58a6ff;
+}
+
+.signup-text {
+    text-align: center;
+    margin-top: 30px;
+    color: #718096;
+    font-size: 14px;
+}
+
+.signup-text a {
+    color: darkgray;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.graphic-content {
+    color: white;
+    text-align: center;
+    padding: 30px;
+    
+}
+img{
+    width: 200px;
+}
+
+.graphic-content h2 {
+    font-size: 35px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.graphic-content p {
+    font-size: 35px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    
+}
+
+
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        margin: 20px;
+        background-color: #58a6ff;
+    }
+
+    .login-container,
+    .graphic-container {
+        width: 100%;
+        padding: 40px 30px;
+        background-color: #58a6ff;
+    }
+
+    .graphic-container {
+        padding: 60px 30px;
+        background-color: #58a6ff;
+    }
+}

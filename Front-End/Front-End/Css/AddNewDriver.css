@@ -1,0 +1,200 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    background-color: #f4f6f9;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #1f2937;
+    color: white;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.sidebar-header {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar-menu .menu-category {
+    margin-bottom: 40px;
+}
+
+.menu-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.menu-items {
+    margin-top: 10px;
+    padding-left: 10px;
+    display: none;
+}
+
+.menu-items.show {
+    display: block;
+}
+
+.menu-item {
+    padding: 8px 0;
+    cursor: pointer;
+}
+
+.menu-item.active {
+    font-weight: 600;
+    color: #1d4ed8;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px 40px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    background-color: #008cff;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.add-driver-container {
+    margin-top: 30px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.form-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.photo-group label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.photo-upload {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.photo-preview {
+    width: 80px;
+    height: 80px;
+    background-color: #e5e7eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 2rem;
+    color: #9ca3af;
+}
+
+.upload-btn {
+    background-color: #008cff;
+
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.form-row {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.form-field {
+    flex: 1;
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.check-mark {
+    position: absolute;
+    right: 10px;
+    top: 40px;
+    color: green;
+}
+
+.divider {
+    border-top: 1px solid #e5e7eb;
+    margin: 30px 0;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-cancel {
+    background-color: #e5e7eb;
+}
+
+.btn-submit {
+    background-color: #008cff;
+
+    color: white;
+}

@@ -1,0 +1,407 @@
+:root {
+  --primary-color: #1589e1;
+  --primary-dark: #116db6;
+  --warning-color: #f7b731;
+  --success-color: #27ae60;
+  --danger-color: #e74c3c;
+  --light-gray: #f5f7fa;
+  --dark-gray: #222;
+  --border-radius: 12px;
+  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Fredoka', Arial, sans-serif;
+  background-color: var(--light-gray);
+  color: #333;
+  line-height: 1.6;
+}
+
+.header {
+  background: var(--primary-color);
+  color: #fff;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-text {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.nav-links ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  padding: 0.5rem;
+  transition: var(--transition);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-links a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.main-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.filters-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 500;
+}
+
+.filter-btn.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.bookings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.booking-card {
+  background: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.booking-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(21, 131, 216, 0.15);
+}
+
+.route-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.arrow {
+  color: var(--primary-color);
+}
+
+.booking-info {
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+
+.info-row i {
+  color: var(--primary-color);
+  width: 1.5rem;
+  text-align: center;
+  margin-right: 0.5rem;
+}
+
+.status-text {
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.pending .status-text {
+  background-color: rgba(247, 183, 49, 0.1);
+  color: var(--warning-color);
+}
+
+.accepted .status-text {
+  background-color: rgba(39, 174, 96, 0.1);
+  color: var(--success-color);
+}
+
+.cancelled .status-text {
+  background-color: rgba(231, 76, 60, 0.1);
+  color: var(--danger-color);
+}
+
+.booking-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #ddd;
+}
+
+.price {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: var(--primary-color);
+}
+
+.action-btn {
+  border: none;
+  border-radius: var(--border-radius);
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cancel-btn {
+  background: var(--danger-color);
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+}
+
+.download-btn {
+  background: var(--success-color);
+  color: white;
+}
+
+.download-btn:hover {
+  background: #219653;
+  transform: translateY(-2px);
+}
+
+.action-btn i {
+  font-size: 0.9rem;
+}
+
+.trip-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.express-badge {
+  background: var(--warning-color);
+  color: white;
+}
+
+.no-bookings {
+  text-align: center;
+  grid-column: 1 / -1;
+  padding: 3rem;
+  color: #777;
+}
+
+.no-bookings i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #ddd;
+}
+
+.confirmation-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  border-radius: var(--border-radius);
+  width: 90%;
+  max-width: 500px;
+  padding: 2rem;
+  position: relative;
+  animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #777;
+}
+
+.modal-title {
+  font-family: 'Fredoka One', cursive;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+}
+
+.confirm-btn {
+  background: var(--danger-color);
+  color: white;
+}
+
+.confirm-btn:hover {
+  background: #c0392b;
+}
+
+.cancel-modal-btn {
+  background: #eee;
+  color: #333;
+}
+
+.cancel-modal-btn:hover {
+  background: #ddd;
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 1rem;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: var(--primary-color);
+    padding: 1rem;
+    transform: translateY(-150%);
+    transition: var(--transition);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links.active {
+    transform: translateY(0);
+  }
+
+  .nav-links ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .bookings-grid {
+    grid-template-columns: 1fr;
+  }
+}
